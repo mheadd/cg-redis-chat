@@ -9,6 +9,7 @@ const redisAdapter = require('socket.io-redis');
 const appEnv = cfenv.getAppEnv();
 const redisService = appEnv.getService('redis-chat');
 
+// Connect to Redis instance.
 io.adapter(redisAdapter({ host: redisService.credentials.hostname, port: redisService.credentials.port, password: redisService.credentials.password }));
 
 const roomName = 'VIRLRoom';
@@ -17,13 +18,12 @@ app.use(express.static('client'));
 
 io.on('connection', (socket) => {
     io.of('/').adapter.remoteJoin(socket.id, roomName, (err) => {
-        if(!err) {
+        if (!err) {
             console.log(`${socket.id} joined the room: ${roomName}`);
         }
         else {
             console.log(`${err}`);
         }
-
     });
     socket.on('chat.message', (msg) => {
         io.to(roomName).emit('chat.message', msg);
