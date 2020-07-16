@@ -1,0 +1,7 @@
+---
+applications:
+- name: redis-chat
+  random-route: true
+  buildpacks:
+    - nodejs_buildpack
+  memory: 256M
