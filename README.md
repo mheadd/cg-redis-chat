@@ -10,7 +10,7 @@ Clone this repo. Then deploy it as a cloud.gov app and attach a new Redis servic
 ~$ cf push --no-start
 ~$ cf create-service redis32 standard-ha redis-chat
 ~$ cf bind-service redis-chat redis-chat
-~$ cf push
+~$ cf start redis-chat
 ```
 
 Run `cf apps` to see the route assigned to your app and open the URL in a browser.
